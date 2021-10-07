@@ -1,0 +1,74 @@
+/*
+ * Copyright (c) 2020 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+ #include <behaviors.dtsi>
+ #include <dt-bindings/zmk/keys.h>
+ #include <dt-bindings/zmk/mouse.h>
+ #include <dt-bindings/zmk/bt.h>
+ #include <dt-bindings/zmk/rgb.h>
+ #include <dt-bindings/zmk/outputs.h>
+
+#define DEFAULT 0
+#define SYMBOL  1
+#define NAV     2
+#define SYS     3
+
+/ {
+	keymap {
+		compatible = "zmk,keymap";
+
+    default_layer {
+// ------------------------------------------------------------------------------------------------------------------------------------
+// |  ESC  |  Q  |  W  |  E   |  R   |  T   |                                   |  Y   |  U    |  I    |  O   |   P   |  ALT  |
+// |  CTRL |  A  |  S  |  D   |  F   |  G   |                                   |  H   |  J    |  K    |  L   |   ;   |   '   |
+// | SHIFT |  Z  |  X  |  C   |  V   |  B   | SYS | NAV    |  | SYMBOL  | SYS   |  M   |  ,    |  .   |   /   | SHIFT |
+//                     | R-CL | DEL  | GUI  | RET | SYMBOL |  | NAV     | SPACE | BSPC | DEL  | TAB   |
+		  bindings = <
+&kp ESC    &kp Q  &kp W  &kp E     &kp R     &kp T                                                &kp Y    &kp U    &kp I      &kp O    &kp P     &kp RALT
+&kp LCTRL  &kp A  &kp S  &kp D     &kp F     &kp G                                                &kp H    &kp J    &kp K      &kp L    &kp SEMI  &kp SQT
+&kp LSHFT  &kp Z  &kp X  &kp C     &kp V     &kp B     &mo SYS  &mo NAV     &mo SYMBOL &mo SYS    &kp N    &kp M    &kp COMMA  &kp DOT  &kp FSLH  &kp RSHIFT
+                         &mkp LCLK &mkp RCLK &kp LGUI  &kp RET  &mo SYMBOL  &mo NAV    &kp SPACE  &kp BSPC &kp DEL  &kp TAB
+			>;
+
+		  // sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+		};
+
+    symbols_layer {
+// ----------------------------------------------------------------------------------------------------------------------------------
+// |   `   |  1  |  2  |  3   |  4   |  5   |                                          |  6   |  7    |  8    |  9   |   0   |   \  |
+// |   ~   |  !  |  @  |  #   |  $   |  %   |                                          |  ^   |  &    |  *    |  (   |   )   |   |  |
+// |   ?   |  |  |  =  |  +   |  _   |  -   |         |         |  |         |         |  [   |  ]    |  {    |  }   |   <   |   >  |
+//                     |      |      |      |         |         |  |         |         |      |       |       |
+      bindings = <
+&kp GRAVE &kp N1   &kp N2    &kp N3   &kp N4    &kp N5                                &kp N6    &kp N7    &kp N8    &kp N9   &kp N0   &kp BSLH
+&kp TILDE &kp EXCL &kp AT    &kp HASH &kp DLLR  &kp PRCNT                             &kp CARET &kp AMPS  &kp ASTRK &kp LPAR &kp RPAR &kp PIPE
+&kp QMARK &kp PIPE &kp EQUAL &kp PLUS &kp UNDER &kp MINUS &trans &trans &trans &trans &kp LBKT  &kp RBKT  &kp LBRC  &kp RBRC &kp LT   &kp GT
+                             &trans    &trans   &trans    &trans &trans &trans &trans &trans    &trans    &trans
+      >;
+
+      sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+    };
+
+    sys_layer {
+// ----------------------------------------------------------------------------------------------------------------------------------------
+// | RGB CYCLE |     |     |     |     | RGB BRIGHT UP   |                             |      |       |            |       |       |      |
+// |           |     |     |     |     | RGB BRIGHT DOWN |                             |      |       |            |       |       |      |
+// | RGB ON    |     |     |     |     |                 |      |      |  |     |      |      |       |            |       |       |      |
+//                         |     |     |                 |      |      |  |     |      |      | RESET | BOOTLOADER |
+			bindings = <
+&rgb_ug RGB_TOG &none &none &none  &none  &rgb_ug RGB_BRI                             &bt BT_CLR   &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4
+&none           &none &none &none  &none  &rgb_ug RGB_BRD                             &out OUT_BLE &out OUT_USB &out OUT_TOG &none        &none        &none
+&rgb_ug RGB_EFF &none &none &none  &none  &none           &trans &trans &trans &trans &none        &none        &none        &none        &none        &none
+                            &trans &trans &trans          &trans &trans &trans &trans &trans       &reset       &bootloader
+			>;
+
+			// sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+		};
+
+
+  };
+
+};
