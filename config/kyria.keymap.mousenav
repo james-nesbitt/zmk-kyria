@@ -17,21 +17,20 @@
 #define SYS     3
 
 / {
-
 	keymap {
 		compatible = "zmk,keymap";
 
     default_layer {
 // ------------------------------------------------------------------------------------------------------------------------------------
-// | ESC/SYS |  Q  |  W  |  E   |  R   |  T   |                                    |  Y   |  U   |  I   |  O   |   P   | '/ALT |
-// | SHIFT   |  A  |  S  |  D   |  F   |  G   |                                    |  H   |  J   |  K   |  L   |   ;   | SHIFT |
-// | CTRL    |  Z  |  X  |  C   |  V   |  B   | SHIFT | NAV    | | SYMBOL  | SHIFT |  N   |  M   |  ,   |  .   |   /   | CTRL  |
-//                       | R-CL | DEL  | GUI  | RET   | SYMBOL | | NAV     | SPACE | BSPC | DEL  | TAB  |
+// |  ESC  |  Q  |  W  |  E   |  R   |  T   |                                  |  Y   |  U    |  I    |  O   |   P   |  ALT  |
+// |  CTRL |  A  |  S  |  D   |  F   |  G   |                                  |  H   |  J    |  K    |  L   |   ;   |   '   |
+// | SHIFT |  Z  |  X  |  C   |  V   |  B   | SYS | NAV    | | SYMBOL  | SYS   |  M   |  ,    |  .   |   /   | SHIFT |
+//                     | R-CL | DEL  | GUI  | RET | SYMBOL | | NAV     | SPACE | BSPC | DEL  | TAB   |
 		  bindings = <
-&lt SYS ESC  &kp Q  &kp W  &kp E     &kp R     &kp T                                                 &kp Y    &kp U    &kp I      &kp O    &kp P     &lt RALT SQT
-&kp LSHFT    &kp A  &kp S  &kp D     &kp F     &kp G                                                 &kp H    &kp J    &kp K      &kp L    &kp SEMI  &kp RSHIFT
-&kp LCTRL    &kp Z  &kp X  &kp C     &kp V     &kp B     &kp LSHFT &mo NAV     &mo SYMBOL &kp RSHFT  &kp N    &kp M    &kp COMMA  &kp DOT  &kp FSLH  &kp RCTRL
-                           &kp LSHFT &kp LCTRL &kp LGUI  &kp RET   &mo SYMBOL  &mo NAV    &kp SPACE  &kp BSPC &kp DEL  &kp TAB
+&kp ESC    &kp Q  &kp W  &kp E     &kp R     &kp T                                                &kp Y    &kp U    &kp I      &kp O    &kp P     &kp RALT
+&kp LCTRL  &kp A  &kp S  &kp D     &kp F     &kp G                                                &kp H    &kp J    &kp K      &kp L    &kp SEMI  &kp SQT
+&kp LSHFT  &kp Z  &kp X  &kp C     &kp V     &kp B     &mo SYS  &mo NAV     &mo SYMBOL &mo SYS    &kp N    &kp M    &kp COMMA  &kp DOT  &kp FSLH  &kp RSHIFT
+                         &mkp LCLK &mkp RCLK &kp LGUI  &kp RET  &mo SYMBOL  &mo NAV    &kp SPACE  &kp BSPC &kp DEL  &kp TAB
 			>;
 
 		  // sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
@@ -60,10 +59,10 @@
 // |      |      |      |      |      |      |       |       | |       |       |      |       |       |       |      |      |
 //                      |      |      |      |       |       | |       |       |      |       |       |
 			bindings = <
-&none  &none    &mwh SCROLL_LEFT &mmv MOVE_UP   &mwh SCROLL_RIGHT &mwh SCROLL_UP                               &kp PG_UP &kp HOME  &kp UP   &kp END   &none &kp PSCRN
-&trans &none    &mmv MOVE_LEFT   &mmv MOVE_DOWN &mmv MOVE_RIGHT   &mwh SCROLL_DOWN                             &kp PG_DN &kp LEFT  &kp DOWN &kp RIGHT &none &trans
-&trans &mkp MB5 &mkp MB4         &mkp MB3       &mkp MB2          &mkp MB1         &trans &trans &trans &trans &none     &none     &none    &none     &none &trans
-                                 &mkp LCLK      &mkp RCLK         &trans           &trans &trans &trans &trans &mkp LCLK &mkp RCLK &mkp MB3
+&none &none    &mwh SCROLL_LEFT &mmv MOVE_UP   &mwh SCROLL_RIGHT &mwh SCROLL_UP                               &kp PG_UP &kp HOME &kp UP   &kp END   &none &kp PSCRN
+&none &none    &mmv MOVE_LEFT   &mmv MOVE_DOWN &mmv MOVE_RIGHT   &mwh SCROLL_DOWN                             &kp PG_DN &kp LEFT &kp DOWN &kp RIGHT &none &none
+&none &mkp MB5 &mkp MB4         &mkp MB3       &mkp MB2          &mkp MB1         &trans &trans &trans &trans &none     &none    &none    &none     &none &none
+                                &trans         &trans            &trans           &trans &trans &trans &trans &trans    &trans   &trans
 			>;
 
 			// sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
@@ -71,19 +70,20 @@
 
     sys_layer {
 // ----------------------------------------------------------------------------------------------------------------------------------------
-// |           |     |     |     |     | RGB BRIGHT UP   |                            |      |       |            |      |      |      |
-// | RGB CYCLE |     |     |     |     | RGB BRIGHT DOWN |                            |      |       |            |      |      |      |
+// | RGB CYCLE |     |     |     |     | RGB BRIGHT UP   |                            |      |       |            |      |      |      |
+// |           |     |     |     |     | RGB BRIGHT DOWN |                            |      |       |            |      |      |      |
 // | RGB ON    |     |     |     |     |                 |      |      | |     |      |      |       |            |      |      |      |
 //                         |     |     |                 |      |      | |     |      |      | RESET | BOOTLOADER |
 			bindings = <
-&trans          &none &none &none  &none  &rgb_ug RGB_BRI                             &bt BT_CLR   &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4
-&rgb_ug RGB_TOG &none &none &none  &none  &rgb_ug RGB_BRD                             &out OUT_BLE &out OUT_USB &out OUT_TOG &none        &none        &rgb_ug RGB_TOG
-&rgb_ug RGB_EFF &none &none &none  &none  &none           &trans &trans &trans &trans &none        &none        &none        &none        &none        &rgb_ug RGB_EFF
+&rgb_ug RGB_TOG &none &none &none  &none  &rgb_ug RGB_BRI                             &bt BT_CLR   &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4
+&none           &none &none &none  &none  &rgb_ug RGB_BRD                             &out OUT_BLE &out OUT_USB &out OUT_TOG &none        &none        &none
+&rgb_ug RGB_EFF &none &none &none  &none  &none           &trans &trans &trans &trans &none        &none        &none        &none        &none        &none
                             &trans &trans &trans          &trans &trans &trans &trans &trans       &reset       &bootloader
 			>;
 
 			// sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
 		};
+
 
   };
 
